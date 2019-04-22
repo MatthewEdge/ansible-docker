@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+
+  control:
+    build:
+      context: control
+      args:
+        HOST: "ansible_buildnode"
+        NUM_HOSTS: 2
+        USER: root
+        PASS: someuniquepasswordhere
+    volumes:
+      - "./playbooks:/root/playbooks"
+    links:
+      - buildnode
+
+  # Provision how many we want with docker-compose up --scale buildnode=2
+  buildnode:
+    build:
+      context: buildnode
+      args:
+        USER: root
+        PASS: someuniquepasswordhere
+    hostname: buildnode

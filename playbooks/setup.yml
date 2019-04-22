@@ -1,0 +1,8 @@
+---
+# Provision all hosts
+- hosts: all
+  remote_user: root
+
+  tasks:
+    - name: echo
+      template: src=test.j2 dest=/etc/default/test
